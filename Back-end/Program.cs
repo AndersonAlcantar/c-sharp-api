@@ -1,3 +1,6 @@
+using Back_end.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(routing => routing.LowercaseUrls = true);
+builder.Services.AddDbContext<CustomerDataBaseContext>(mysqlBuilder => {
+    mysqlBuilder.UseMySQL(builder.Configuration.GetConnectionString("Connection1"));
+});
 
 var app = builder.Build();
 
